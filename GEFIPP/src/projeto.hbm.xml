@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    
+    <class name="model.business.Projeto" table="projeto" >
+		<meta attribute="class-description"> This class contains projeto details. </meta>
+        
+		<id name="id_projeto" type="integer" column="id_projeto">
+			<generator class="native" />
+		</id>
+		        
+        <property name="nome" type="string" column="nome" length="45" not-null="true"/>
+        <property name="descricao" type="string" column="descricao" />
+        <property name="valor_total" type="float" column="valor_total" not-null="true"/>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    
+    <class name="model.business.Usuario" table="usuario" >
+		<meta attribute="class-description"> This class contains usuario details. </meta>
+        
+		<id name="id_usuario" type="integer" column="id_usuario">
+			<generator class="native" />
+		</id>
+		 
+		<property name="nome" type="string" column="nome" length="45" not-null="true" />        
+        <property name="login" type="string" column="login" length="45" not-null="true"/>
+        <property name="senha" type="string" column="senha" length="45" not-null="true"/>
+        <property name="nivel_permissao" type="integer" column="nivel_permissao" not-null="true"/>
+    </class>
+
+</hibernate-mapping>

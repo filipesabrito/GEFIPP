@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>Biblioteca</title>
+        </f:facet>
+    </h:head>
+
+    <h:body>
+        <h:form id="form"> 
+            <p:panel id="panel" header="New Book">  
+
+                <p:messages id="msgs"/>  
+
+                <h:panelGrid columns="3">  
+                    <h:outputLabel for="isbn" value="ISBN: *" />  
+                    <p:inputText id="isbn" value="#{livroBean.isbn}" required="true" label="ISBN">  
+                        <f:validateLength minimum="10" />  
+                    </p:inputText>  
+                    <p:message for="isbn" display="icon"/>  
+
+                    <h:outputLabel for="autor" value="Autor: *" />  
+                    <p:inputText id="autor" value="#{livroBean.autor}" label="Autor" required="true">  
+                        <f:validateLength minimum="3" />  
+                        <p:ajax update="msgAutor" event="keyup" />  
+                    </p:inputText>  
+                    <p:message for="autor" id="msgAutor" display="icon"/>  
+
+                    <h:outputLabel for="titulo" value="Título: *" />  
+                    <p:inputText id="titulo" value="#{livroBean.titulo}" required="true" label="ISBN">  
+                        <f:validateLength minimum="10" />  
+                    </p:inputText>  
+                    <p:message for="titulo" display="icon"/>  
+
+                    <h:outputLabel for="genero" value="Gênero *" />  
+                    <p:inputText id="genero" value="#{livroBean.genero}" required="true" label="ISBN">  
+                        <f:validateLength minimum="10" />  
+                    </p:inputText>  
+                    <p:message for="genero" display="icon"/>  
+                </h:panelGrid>  
+
+                <p:commandButton id="btn" value="Save" update="panel" actionListener="#{livroBean.saveLivro}"/> 
+                <p:commandButton value="Search" id="btnBuscar" process="@this,autor" update="panel"   
+                                 actionListener="#{livroBean.searchAutor}"/> 
+            </p:panel> 
+        </h:form> 
+    </h:body>
+</html>
+

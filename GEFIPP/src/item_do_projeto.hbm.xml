@@ -1,0 +1,23 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    
+    <class name="model.business.ItemDoProjeto" table="item_do_projeto" >
+		<meta attribute="class-description"> This class contains item do projeto details. </meta>
+        
+		<id name="id_item_do_projeto" type="integer" column="id_item_do_projeto">
+			<generator class="native" />
+		</id>
+
+		<property name="valor" type="float" column="valor" not-null="true"/>
+		
+        <many-to-one name="projeto" class="model.business.Projeto" fetch="select">
+            <column name="id_projeto" not-null="true" />
+        </many-to-one> 
+        
+        <many-to-one name="item" class="model.business.Item" fetch="select">
+            <column name="id_item" not-null="true" />
+        </many-to-one> 
+    </class>
+
+</hibernate-mapping>
