@@ -12,24 +12,24 @@
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
             <title>GEFIPP</title>
         </f:facet>
-    </h:head>
+	</h:head>
 
   	<h:body>
   		<p:fieldset> GEFIPP </p:fieldset>
 			<p:messages id="mensagem" showDetail="true" autoUpdate="true" closable="true" for="mensagem"/> 
 
   		<h:form id="login_form">
-			
-  			<h:panelGroup id="panelGroup">
+			<h:panelGrid id="panelGroup" columns="2" cellpadding="3"> 
   				<h:outputLabel for="login" value="Login: " />  
   				<p:inputText id="login" value="#{usuarioController.login}" required="true"/>  
 
   				<h:outputLabel for="senha" value="Senha: " />  
   				<p:password id="senha" value="#{usuarioController.senha}" required="true" /> 
-
-				<p:commandButton id="btn" value="Acessar" update="panelGroup" actionListener="#{usuarioController.getUsuario}"/>  				
-  			</h:panelGroup>
-  		
+				
+				<f:facet name="footer"> 
+					<p:commandButton id="btn" value="Acessar" update="panelGroup" actionListener="#{usuarioController.getUsuario}"/>  				
+  				</f:facet>
+  			</h:panelGrid>
   		</h:form>
     </h:body>
 </html>

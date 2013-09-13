@@ -19,12 +19,6 @@ public class UsuarioDAOHibernate implements IUsuarioDAO {
 	}
 
 	@Override
-	public Usuario getOne(String login, String senha) throws Exception {
-		Usuario usuario = (Usuario) session.createQuery("from Usuario where login like '"+ login +"' and senha like '" + senha +"'").uniqueResult();
-		return usuario;
-	}
-
-	@Override
 	public void update(Usuario usuario) throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -41,5 +35,11 @@ public class UsuarioDAOHibernate implements IUsuarioDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Usuario getOne(String login, String senha) throws Exception {
+		Usuario usuario = (Usuario) session.createQuery("from Usuario where login like '"+ login +"' and senha like '" + senha +"'").uniqueResult();
+		return usuario;
+	}	
 
 }
