@@ -58,5 +58,4 @@ public class Projeto {
 	public void setItemDoProjeto(Set<ItemDoProjeto> itemDoProjeto) {
 		this.itemDoProjeto = itemDoProjeto;
 	}
-	
 }

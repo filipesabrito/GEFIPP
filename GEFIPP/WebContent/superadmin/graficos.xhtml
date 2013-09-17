@@ -14,8 +14,11 @@
         </f:facet>
     </h:head>
 
-  	<h:body>
-  		<p:fieldset> GEFIPP </p:fieldset>
-			<ui:include src="/include/superadmin/menubar.xhtml" />
+  	<h:body styleClass="body">
+		<h:outputStylesheet library="css" name="style.css"  />
+		<ui:include src="/include/superadmin/menubar.xhtml" />
+		<ui:include src="/include/superadmin/verificasessaosuperadmin.xhtml" />
+
+
     </h:body>
 </html>

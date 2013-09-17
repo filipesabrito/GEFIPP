@@ -1,19 +1,21 @@
 package model.business;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 import model.util.Hibernate;
 
 public class HibernateTest {
 	public static void main(String[] args){
-		HibernateTest main = new HibernateTest();
-		
+		//HibernateTest main = new HibernateTest();
 		//main.insertUsuario();
 		//main.insertValue();
-		main.getOneUsuario("superadminpadrao", "superadmin");
+		//main.getOneUsuario("superadminpadrao", "superadmin");
+		//main.listAllByUser();
 	}
 
 	public void insertUsuario(){
@@ -24,8 +26,8 @@ public class HibernateTest {
 			transaction = session.beginTransaction();
 
 			Usuario usuario = new Usuario();
-			usuario.setNome("Super Administrador Padrao do GEFIPP");
-			usuario.setLogin("superadminpadrao");
+			usuario.setNome("Exemplo de usu‡rio super administrador");
+			usuario.setLogin("superadmim");
 			usuario.setSenha("superadmin");
 			usuario.setNivel_permissao(2);
 			
@@ -70,4 +72,37 @@ public class HibernateTest {
 		System.out.println(usuario.getNivel_permissao());
 	}
 
+	public void listAllByUser(){
+		Session session = Hibernate.getSessionFactory().openSession();
+		Usuario usuario = new Usuario();
+		usuario.setId_usuario(11);
+
+		@SuppressWarnings("unchecked")
+		List<Object[]> list = session.createSQLQuery(" select projeto.id_projeto, projeto.nome, projeto.descricao, projeto.valor_total "
+				+ "from projeto, projeto_do_usuario"
+				+ " where projeto_do_usuario.id_usuario = '"+ usuario.getId_usuario() +"'"
+				+ " and projeto_do_usuario.id_projeto = projeto.id_projeto").list();
+		
+		List<Projeto> projetoList = new ArrayList<Projeto>();
+
+	    for (Object[] o : list) {  
+	         Object[] aux = o;
+	         Projeto p = new Projeto();
+	         p.setId_projeto((Integer)aux[0]);
+	         p.setNome((String)aux[1]);
+	         p.setDescricao((String) aux[2]);
+	         p.setValor_total((Float) aux[3]);
+	         projetoList.add(p);
+	    }
+	    
+	    java.util.Iterator<Projeto> it = projetoList.iterator();
+	    while(it.hasNext()){
+	    	Projeto proj = (Projeto) it.next();
+	    	System.out.println(proj.getId_projeto());
+	    	System.out.println(proj.getNome());
+	    	System.out.println(proj.getDescricao());
+	    	System.out.println(proj.getValor_total());
+	    }
+	    
+	}
 }

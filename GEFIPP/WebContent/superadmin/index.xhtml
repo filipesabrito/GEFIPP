@@ -14,8 +14,13 @@
         </f:facet>
     </h:head>
 
-  	<h:body>
-  		<p:fieldset> GEFIPP </p:fieldset>
-			<ui:include src="/include/superadmin/menubar.xhtml" />
+  	<h:body styleClass="body">
+		<h:outputStylesheet library="css" name="style.css"  />
+		<ui:include src="/include/superadmin/menubar.xhtml" />
+		<ui:include src="/include/superadmin/verificasessaosuperadmin.xhtml" />
+
+		<h:panelGroup styleClass="boasVindas" layout="block">
+			<h:outputText styleClass="boasVindas" value="Bem vindo #{usuarioController.nome}" />  
+		</h:panelGroup>
     </h:body>
 </html>

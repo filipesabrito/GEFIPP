@@ -8,14 +8,169 @@
 	xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <f:facet name="first">
-            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <title>GEFIPP</title>
-        </f:facet>
-    </h:head>
+		<title>GEFIPP</title>
+	</h:head>
 
-  	<h:body>
-  		<p:fieldset> GEFIPP </p:fieldset>
-			<ui:include src="/include/superadmin/menubar.xhtml" />
+  	<h:body styleClass="body">
+		<h:outputStylesheet library="css" name="style.css"  />
+		<ui:include src="/include/superadmin/menubar.xhtml" />
+		<ui:include src="/include/superadmin/verificasessaosuperadmin.xhtml" />
+
+        <h:form id="formProjeto">  
+            <p:growl id="messages" showDetail="true"/>  
+            <p:dataTable 
+                value="#{projetoController.projetoList}" 
+                var="projeto" 
+                id="projetoList" 
+                editable="true"
+                emptyMessage="Nenhum projeto encontrado"
+                paginator="true" 
+                rows="5">
+			
+                <f:facet name="header">  
+                    <h:outputText value="Lista de projetos" /> 
+                </f:facet>
+                
+                <p:ajax event="rowEdit" listener="#{projetoController.onEdit}" update=":formProjeto:messages"/>  
+                <p:ajax event="rowEditCancel" listener="#{projetoController.onCancel}" update="projetoList"/>  
+
+                <p:column headerText="Nome" style="width:30%">  
+                    <p:cellEditor>  
+                        <f:facet name="output">  
+                            <h:outputText value="#{projeto.nome}" />  
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{projeto.nome}" style="width:100%"/>  
+                        </f:facet>  
+                    </p:cellEditor>  
+                </p:column>  
+                
+                <p:column headerText="Descrição" style="width:30%">  
+                    <p:cellEditor>  
+                        <f:facet name="output">  
+                            <h:outputText value="#{projeto.descricao}" />  
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{projeto.descricao}" style="width:100%"/>  
+                        </f:facet>  
+                    </p:cellEditor>  
+                </p:column>  
+                
+                <p:column headerText="Valor Total Inicial" style="width:10%">  
+                    <p:cellEditor>  
+                        <f:facet name="output">  
+                            <h:outputText value="R$ #{projeto.valor_total}" />  
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{projeto.valor_total}" style="width:100%"/>  
+                        </f:facet>  
+                    </p:cellEditor>  
+                </p:column>  
+
+                <p:column headerText="Itens" style="width:10%">  
+                	<p:commandButton id="addItem" process="@this" update=":formNovoItem:novoItemPanelGrid" oncomplete="novoItemDialog.show()" icon="ui-icon-plus" title="View">  
+                		<f:setPropertyActionListener value="#{projeto}" target="#{projetoController.selectedProject}" />  
+            		</p:commandButton>  
+
+                	<p:commandButton id="verItem" process="@this" update=":formVerItem:verItemDlg" action="#{itemDoProjetoController.list(projeto)}"  oncomplete="verItemDialog.show()" icon="ui-icon-search" title="View">  
+            		</p:commandButton>  
+                </p:column>
+
+                <p:column style="width:6%">  
+                    <p:rowEditor />
+                    <p:commandLink id="deleteLink" update=":formProjeto:messages,:formProjeto:projetoList" styleClass="ui-icon ui-icon-trash"  action="#{projetoController.deleteProjeto(projeto)}"/>
+                </p:column>
+            </p:dataTable> 
+            
+			<h:panelGrid columns="1" cellpadding="5">  
+    			<p:commandButton id="basic" value="Novo Projeto" onclick="projetoDialog.show();" type="button" />  
+			</h:panelGrid>             
+
+        </h:form>
+
+        <h:form id="formNovoProjeto">
+        	<p:dialog header="Novo Projeto" widgetVar="projetoDialog" resizable="false" id="projetoDlg">  
+		        <h:panelGrid id="projetoPanelGrid" columns="2" cellpadding="5">  
+            		<h:outputLabel for="projetoNome" value="Nome:" />  
+            			<p:inputText id="projetoNome" value="#{projetoController.nome}" required="true" />
+
+            		<h:outputLabel for="projetoDesc" value="Descricao:" />  
+            			<p:inputText id="projetoDesc" value="#{projetoController.descricao}" required="true" />
+
+
+            		<h:outputLabel for="projetoValorTotal" value="Valor Total:" />  
+            			<p:inputText id="projetoValorTotal" value="#{projetoController.valor_total}" required="true" />
+            			  
+            		<f:facet name="footer">  
+                		<p:commandButton id="projetoBtn" value="Salvar" update=":formNovoProjeto:projetoPanelGrid,:formProjeto:projetoList" actionListener="#{projetoController.save}" oncomplete="projetoDialog.hide()"/>  
+            		</f:facet>  
+        		</h:panelGrid>  
+	    	</p:dialog> 
+		</h:form>	    	
+
+        <h:form id="formNovoItem">
+   			<p:dialog header="Novo Item" widgetVar="novoItemDialog" resizable="false" id="novoItemDlg">  
+		        <h:panelGrid id="novoItemPanelGrid" columns="2" cellpadding="5">  
+            		<h:outputText for="itemNome" value="Nome" />  
+            			<p:inputText id="itemNome" value="#{projetoController.itemNome}" required="true" />
+
+            		<h:outputLabel for="itemValor" value="Valor:" />  
+            			<p:inputText id="itemValor" value="#{projetoController.itemValor}" required="true" />
+
+            		<f:facet name="footer">  
+                		<p:commandButton id="ItemBtn" value="Salvar" update="novoItemPanelGrid" actionListener="#{projetoController.addItem(projetoController.selectedProject)}" oncomplete="novoItemDialog.hide()" />  
+            		</f:facet>  
+        		</h:panelGrid>  
+	    	</p:dialog> 
+		</h:form>	
+
+        <h:form id="formVerItem">
+   			<p:dialog widgetVar="verItemDialog" resizable="false" id="verItemDlg"> 
+            <p:dataTable 
+                value="#{itemDoProjetoController.itemDoProjetoList}" 
+                var="itemDoProjeto" 
+                id="itemDoProjetoList" 
+                editable="true"
+                emptyMessage="Não existe nenhum item cadastrado para este projeto"
+                paginator="true" 
+                rows="5">
+                
+                <f:facet name="header">  
+                    <h:outputText value="Lista de itens" /> 
+                </f:facet>
+                
+                <p:ajax event="rowEdit" listener="#{itemDoProjetoController.onEdit}" update=":formProjeto:messages"/>  
+                <p:ajax event="rowEditCancel" listener="#{itemDoProjetoController.onCancel}" update="itemDoProjetoList"/>  
+
+                <p:column headerText="Nome" style="width:30%">  
+                    <p:cellEditor>  
+                        <f:facet name="output" >  
+                            <h:outputText value="#{itemDoProjeto.nome}" />  
+                        </f:facet>  
+                        <f:facet name="input"> 
+                            <p:inputText value="#{itemDoProjeto.nome}" style="width:100%"/>
+                        </f:facet>
+					</p:cellEditor>
+                </p:column>    
+
+                <p:column headerText="Valor" style="width:10%">  
+                    <p:cellEditor>  
+                        <f:facet name="output">  
+                            <h:outputText value="R$ #{itemDoProjeto.valor}" />  
+                        </f:facet>  
+                        <f:facet name="input">  
+                            <p:inputText value="#{itemDoProjeto.valor}" style="width:100%"/>  
+                        </f:facet>  
+                    </p:cellEditor>  
+                </p:column>     
+                <p:column style="width:6%">  
+                    <p:rowEditor />
+                    <p:commandLink id="deleteLink" update=":formProjeto:messages,:formVerItem:itemDoProjetoList" styleClass="ui-icon ui-icon-trash" action="#{itemDoProjetoController.deleteItem(itemDoProjeto)}" />
+                </p:column>
+  			</p:dataTable> 
+	    	</p:dialog> 
+		</h:form>	
+
     </h:body>
+
 </html>

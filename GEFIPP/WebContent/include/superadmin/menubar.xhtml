@@ -2,10 +2,18 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+		
+		<p:fieldset styleClass="fieldSet"> GEFIPP </p:fieldset>
+		
+		<h:panelGroup styleClass="panelGroupMenuBar" layout="block">
+			<h:form id="formMenuBar">
+				<p:commandButton action="#{projetoController.listAllByUser}" styleClass="buttonProjetos" value="" />
+				<p:commandButton action="#{projetoController.listAllByUser}" styleClass="buttonGraficos" value="" />
+				<p:commandButton action="#{projetoController.listAllByUser}" styleClass="buttonUsuarios" value="" />
+			</h:form>
+		</h:panelGroup>
 
-		<a href="usuarios.xhtml"> <h:graphicImage name="images/usuarios_48x48.png" /> </a>
-		<a href="projetos.xhtml"> <h:graphicImage name="images/projetos_48x48.png" /> </a>
-		<a href="itens.xhtml"> <h:graphicImage name="images/itens_48x48.png" /> </a>
-		<a href="graficos.xhtml"> <h:graphicImage name="images/graficos_48x48.png" /> </a>
+
 </ui:composition>

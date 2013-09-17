@@ -5,6 +5,7 @@ public class ItemDoProjeto {
 	private Projeto projeto;
 	private Item item;
 	private float valor;
+	private String nome;
 	
 	public int getId_item_do_projeto() {
 		return id_item_do_projeto;
@@ -36,6 +37,14 @@ public class ItemDoProjeto {
 	
 	public void setValor(float valor) {
 		this.valor = valor;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 }

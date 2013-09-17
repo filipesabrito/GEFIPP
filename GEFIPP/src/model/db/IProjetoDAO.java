@@ -11,4 +11,5 @@ public interface IProjetoDAO {
     public void remove(Projeto projeto) throws Exception;
     public List<Projeto> listAll() throws Exception;
     public Projeto getOne(int id) throws Exception;
+
 }

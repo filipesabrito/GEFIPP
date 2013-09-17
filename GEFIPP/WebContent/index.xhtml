@@ -14,20 +14,22 @@
         </f:facet>
 	</h:head>
 
-  	<h:body>
-  		<p:fieldset> GEFIPP </p:fieldset>
-			<p:messages id="mensagem" showDetail="true" autoUpdate="true" closable="true" for="mensagem"/> 
+  	<h:body styleClass="body">
+  		<h:outputStylesheet library="css" name="style.css"  />
+  		<p:fieldset styleClass="fieldSet"> GEFIPP </p:fieldset>
+			
+		<p:messages id="mensagem" showDetail="true" autoUpdate="true" closable="true" for="mensagem"/> 
 
-  		<h:form id="login_form">
-			<h:panelGrid id="panelGroup" columns="2" cellpadding="3"> 
+  		<h:form id="formLogin">
+			<h:panelGrid id="panelGrid" columns="2" cellpadding="3" styleClass="panelGroupLogin"> 
   				<h:outputLabel for="login" value="Login: " />  
-  				<p:inputText id="login" value="#{usuarioController.login}" required="true"/>  
+  				<p:inputText id="login" value="#{usuarioController.login}" required="true" />  
 
   				<h:outputLabel for="senha" value="Senha: " />  
   				<p:password id="senha" value="#{usuarioController.senha}" required="true" /> 
 				
 				<f:facet name="footer"> 
-					<p:commandButton id="btn" value="Acessar" update="panelGroup" actionListener="#{usuarioController.getUsuario}"/>  				
+					<p:commandButton id="btn" value="Acessar" update="panelGrid" actionListener="#{usuarioController.login}" />  				
   				</f:facet>
   			</h:panelGrid>
   		</h:form>

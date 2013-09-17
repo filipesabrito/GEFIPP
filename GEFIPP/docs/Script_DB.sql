@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS `GEFIPP`.`usuario` (
   UNIQUE INDEX `login_UNIQUE` (`login` ASC))
 ENGINE = InnoDB;
 
+INSERT INTO `GEFIPP`.`usuario` (nome, login, senha, nivel_permissao) VALUES ('Exemplo de usu‡rio super administrador',
+ 'exemplosuperadmin', 'exemplosuperadmin', 2);
 
 -- -----------------------------------------------------
 -- Table `GEFIPP`.`item_do_projeto`
